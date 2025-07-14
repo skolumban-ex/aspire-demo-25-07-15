@@ -1,0 +1,15 @@
+{
+  "profiles": {
+    "MyWebApi": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "applicationUrl": "https://localhost:7140;http://localhost:5140",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "MY_API_KEY": "dev-secret-key",
+        "FEATURE_FLAG_X": "true"
+      }
+    }
+  }
+}
