@@ -5,6 +5,8 @@ VisualStudioVersion = 17.14.36301.6 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkManagement.Api", "WorkManagement.Api\WorkManagement.Api.csproj", "{B00C3ABA-5BFC-E883-C6CC-8BC410563763}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Worker.Api", "Worker.Api\Worker.Api.csproj", "{342A2920-3513-4CD7-B3C1-7E6F08D8FC1D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{B00C3ABA-5BFC-E883-C6CC-8BC410563763}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B00C3ABA-5BFC-E883-C6CC-8BC410563763}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B00C3ABA-5BFC-E883-C6CC-8BC410563763}.Release|Any CPU.Build.0 = Release|Any CPU
+		{342A2920-3513-4CD7-B3C1-7E6F08D8FC1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{342A2920-3513-4CD7-B3C1-7E6F08D8FC1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{342A2920-3513-4CD7-B3C1-7E6F08D8FC1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{342A2920-3513-4CD7-B3C1-7E6F08D8FC1D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
