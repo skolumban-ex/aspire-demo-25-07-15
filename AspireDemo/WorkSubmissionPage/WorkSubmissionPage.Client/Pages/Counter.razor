@@ -1,0 +1,59 @@
+﻿@page "/counter"
+@rendermode InteractiveAuto
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
+
+@inherits LayoutComponentBase
+
+<h3>Submit and view work items</h3>
+
+<!-- Input Text Box and Submit Button -->
+<div class="form-group">
+    <input @bind="submitWorkItem" class="form-control" placeholder="Enter work item text..." />
+    <button class="btn btn-primary" @onclick="HandleSubmit ">Submit</button>
+</div>
+
+<!-- Table to Display Items -->
+<table class="table">
+    <thead>
+        <tr>
+            <th>Text</th>
+            <th>Items completed before start</th>
+            <th>Items completed by end</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in items)
+        {
+            <tr>
+                <td>@item.Text</td>
+                <td>@item.StartCount</td>
+                <td>@item.EndCount</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@functions {
+    private string submitWorkItem = string.Empty;
+    private List<WorkResult> items = new List<WorkResult>() { };
+
+    // Method to trigger the API request for work submission
+    private async Task HandleSubmit()
+    {
+        Console.WriteLine("Submit button clicked");
+
+        HttpClient client = new HttpClient()
+            {
+                BaseAddress = new Uri(Configuration["WorkManagementUrl"])
+            };
+
+        WorkManagementApiClient apiClient = new WorkManagementApiClient(client);
+
+        // Make sure to escape or encode the search query if needed
+        apiClient.PostWork(new WorkUnitPostDto() { Text = submitWorkItem });
+
+        items = new List<WorkResult>(await apiClient.GetWorkResults());
+
+        StateHasChanged();
+    }
+}
