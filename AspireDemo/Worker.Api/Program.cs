@@ -8,6 +8,7 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+        builder.AddServiceDefaults();
 
         // Add services to the container.
 
@@ -65,6 +66,8 @@ public class Program
             var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
             dbContext.Database.Migrate(); // Apply any pending migrations
         }
+
+        app.MapDefaultEndpoints();
 
         app.Run();
     }

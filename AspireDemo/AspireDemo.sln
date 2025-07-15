@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36301.6 d17.14
+VisualStudioVersion = 17.14.36301.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkManagement.Api", "WorkManagement.Api\WorkManagement.Api.csproj", "{B00C3ABA-5BFC-E883-C6CC-8BC410563763}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkSubmissionPage", "WorkSubmissionPage\WorkSubmissionPage\WorkSubmissionPage.csproj", "{C106322F-16E8-4B0E-B371-37216D36B1FC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkSubmissionPage.Client", "WorkSubmissionPage\WorkSubmissionPage.Client\WorkSubmissionPage.Client.csproj", "{DFD9CEAC-7F7A-4942-953A-3EDA3B23119C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceDefaults", "ServiceDefaults\ServiceDefaults.csproj", "{19C561D0-8AE6-4293-8C2F-C0E3F4EDF6CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{DFD9CEAC-7F7A-4942-953A-3EDA3B23119C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DFD9CEAC-7F7A-4942-953A-3EDA3B23119C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DFD9CEAC-7F7A-4942-953A-3EDA3B23119C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19C561D0-8AE6-4293-8C2F-C0E3F4EDF6CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19C561D0-8AE6-4293-8C2F-C0E3F4EDF6CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19C561D0-8AE6-4293-8C2F-C0E3F4EDF6CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19C561D0-8AE6-4293-8C2F-C0E3F4EDF6CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
