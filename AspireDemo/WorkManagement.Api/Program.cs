@@ -25,7 +25,10 @@ public class Program
         builder.Services.AddControllers();
         // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
         builder.Services.AddOpenApi();
-        builder.Services.AddSwaggerGen();
+        builder.Services.AddSwaggerGen(c =>
+        {
+            c.CustomSchemaIds(type => type.FullName); // Fixes schema ID collision
+        });
 
         // Get the connection string from configuration
         var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -34,7 +37,26 @@ public class Program
         builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseNpgsql(connectionString));
 
+        // Register HttpClient for a typed client
+        builder.Services.AddHttpClient<WorkerApiClient>(client =>
+        {
+            client.BaseAddress = new Uri(builder.Configuration["WorkerUrl"]);
+        });
+
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("AllowAll",
+                policy =>
+                {
+                    policy.AllowAnyOrigin()
+                          .AllowAnyMethod()
+                          .AllowAnyHeader();
+                });
+        });
+
         var app = builder.Build();
+
+        app.UseCors("AllowAll");
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())

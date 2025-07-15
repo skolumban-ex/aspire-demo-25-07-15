@@ -1,56 +1,71 @@
 
 using Microsoft.EntityFrameworkCore;
 
-namespace Worker.Api
+namespace Worker.Api;
+
+public class Program
 {
-    public class Program
+    public static void Main(string[] args)
     {
-        public static void Main(string[] args)
+        var builder = WebApplication.CreateBuilder(args);
+
+        // Add services to the container.
+
+        builder.Services.AddControllers();
+        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddSwaggerGen(c =>
         {
-            var builder = WebApplication.CreateBuilder(args);
+            c.CustomSchemaIds(type => type.FullName); // Fixes schema ID collision
+        });
 
-            // Add services to the container.
+        // Get the connection string from configuration
+        var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-            builder.Services.AddControllers();
-            // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-            builder.Services.AddOpenApi();
-            builder.Services.AddSwaggerGen();
+        // Register DbContext with PostgreSQL
+        builder.Services.AddDbContext<AppDbContext>(options =>
+            options.UseNpgsql(connectionString));
 
-            // Get the connection string from configuration
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-
-            // Register DbContext with PostgreSQL
-            builder.Services.AddDbContext<AppDbContext>(options =>
-                options.UseNpgsql(connectionString));
-
-            var app = builder.Build();
-
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.MapOpenApi();
-                app.UseSwagger();
-                app.UseSwaggerUI(c =>
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("AllowAll",
+                policy =>
                 {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Work management");
-                    c.RoutePrefix = string.Empty;
+                    policy.AllowAnyOrigin()
+                          .AllowAnyMethod()
+                          .AllowAnyHeader();
                 });
-            }
+        });
 
-            app.UseHttpsRedirection();
+        var app = builder.Build();
 
-            app.UseAuthorization();
+        app.UseCors("AllowAll");
 
-            app.MapControllers();
-
-            // apply migrations
-            using (var scope = app.Services.CreateScope())
+        // Configure the HTTP request pipeline.
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseSwagger();
+            app.UseSwaggerUI();
+            app.UseSwaggerUI(c =>
             {
-                var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-                dbContext.Database.Migrate(); // Apply any pending migrations
-            }
-
-            app.Run();
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Work management");
+                c.RoutePrefix = string.Empty;
+            });
         }
+
+        app.UseHttpsRedirection();
+
+        app.UseAuthorization();
+
+        app.MapControllers();
+
+        // apply migrations
+        using (var scope = app.Services.CreateScope())
+        {
+            var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+            dbContext.Database.Migrate(); // Apply any pending migrations
+        }
+
+        app.Run();
     }
 }
